@@ -17,7 +17,8 @@ public class Trie implements ITrie {
 		test.add("ZeBRa");
 		test.add("ZeBRa");
 		test.add("Ze");
-		
+		test.add("ZeBRa");
+		test.add("Ze");
 		
 		System.out.println(test.toString());
 		//System.out.println("here");
