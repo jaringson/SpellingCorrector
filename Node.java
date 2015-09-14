@@ -8,6 +8,7 @@ public class Node implements ITrie.INode {
 	public Node[] children;
 	public int frequency;
 	public static Node current = new Node();
+	public static Node current2 = new Node();
 	public static int nodecount;
 	public static ArrayList<String> words = new ArrayList<String>();
 	

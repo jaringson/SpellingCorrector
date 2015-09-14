@@ -19,8 +19,21 @@ public class Trie implements ITrie {
 		test.add("Ze");
 		test.add("ZeBRa");
 		test.add("Ze");
-		
-		System.out.println(test.toString());
+		Trie test2 = new Trie();
+		test2.add("Jaron");
+		test2.add("Dania");
+		test2.add("Jaron");
+		test2.add("Joseph");
+		test2.add("Josh");
+		test2.add("Gary");
+		test2.add("ZeBRa");
+		test2.add("ZeBRa");
+		test2.add("Ze");
+		test2.add("ZeBRa");
+		test2.add("Ze");
+		System.out.println(test2.equals(test));
+		//test.toString();
+		//System.out.println(test.toString());
 		//System.out.println("here");
 	}
 	Node root;
@@ -29,6 +42,7 @@ public class Trie implements ITrie {
 	{
 		root = new Node();
 		root.current = root;
+		root.current2 = root;
 	}
 
 	@Override
@@ -61,13 +75,47 @@ public class Trie implements ITrie {
 	
 	@Override
 	public int hashCode(){
-		return 0;
+		int prime = 31;
+		return prime * wordcount + prime ^ nodecount;
 	}
 	
+	private boolean equalsRec(Node root1, Node root2) {
+		
+		if(root1.frequency != root2.frequency){
+			//System.out.println("here");
+			return false;
+		}
+		
+		for(int i = 0; i < 26;i++){
+			
+			if(!((root1.children[i] == null) == (root1.children[i] == null))){
+				return false;
+			}
+			else if (root1.children[i] != null && root2.children[i] != null){
+				Boolean test = equalsRec(root1.children[i], root2.children[i]);
+				if(test == false){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 	@Override
 	public boolean equals(Object o){
-		return false;
+		if(o == null){
+			return false;
+		}
+		if(this == o){
+			return true;
+		}
+		if(this.getClass() != o.getClass()){
+			return false;
+		}
+		Trie obj = (Trie)o;
+		if(this.wordcount != obj.wordcount || this.nodecount != obj.nodecount){
+			return false;
+		}
+		return equalsRec(this.root, obj.root);	
 	}
-
 }
 
