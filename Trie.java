@@ -40,9 +40,9 @@ public class Trie implements ITrie {
 		//System.out.println(test.root.nodecount);
 		System.out.println(test.getNodeCount());
 		System.out.println(test2.getNodeCount());
-		System.out.println(test.getWordCount() + "Here1");
-		System.out.println(test2.getWordCount()+ "Here2");
-		System.out.println(test.find("car"));
+		//System.out.println(test.getWordCount() + "Here1");
+		//System.out.println(test2.getWordCount()+ "Here2");
+		System.out.println(test.find("cares"));
 		//System.out.println("here");
 	}
 	Node root;
@@ -77,6 +77,7 @@ public class Trie implements ITrie {
 			return true;
 		}
 		else{
+			//System.out.println("here4");
 			current.addFrequncy();
 			return true;
 		}
@@ -93,7 +94,6 @@ public class Trie implements ITrie {
 		addRec(word);
 		//current.addFrequncy();
 		//current.frequency++;
-		current = root;
 	}
 
 	
@@ -132,7 +132,6 @@ public class Trie implements ITrie {
 
 	@Override
 	public int getWordCount() {
-		
 		return words.size();
 	}
 
