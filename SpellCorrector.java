@@ -40,7 +40,7 @@ public class SpellCorrector implements ISpellCorrector {
 		int winner = 0;
 		int max = 0;
 		for(int i = 0; i < guesses.size();i++){
-			
+			System.out.println("here1");
 			Node temp = (Node)dictionary.find(guesses.get(i));
 			if(temp != null){
 				if(temp.getValue() > max){
@@ -50,7 +50,8 @@ public class SpellCorrector implements ISpellCorrector {
 				System.out.println(temp.getValue()+" "+guesses.get(i));
 			}
 		}
-		if(max ==0 ){
+		if(max == 0){
+			System.out.println("here2");
 			for(int i = 0;i < guesses.size();i++){
 				deletion(guesses.get(i));
 				transposition(guesses.get(i));
@@ -90,7 +91,7 @@ public class SpellCorrector implements ISpellCorrector {
 					temp = temp.append(inputWord.substring(0, i)).append(alpha.charAt(j)).append(inputWord.substring(i, inputWord.length()));
 				}
 				container.add(temp.toString());
-				//System.out.println(temp);
+				System.out.println(temp);
 			}
 		}
 		for(int i = 0; i< container.size();i++){
