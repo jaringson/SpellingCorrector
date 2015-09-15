@@ -25,9 +25,9 @@ public class Trie implements ITrie {
 		Trie test2 = new Trie();
 		test2.add("caress");
 		test2.add("caress");
-		/*test2.add("Dania");
+		test2.add("Dania");
 		test2.add("Jaron");
-		test2.add("Joseph");
+		/*test2.add("Joseph");
 		test2.add("Josh");
 		test2.add("Gary");
 		test2.add("ZeBRa");
@@ -40,9 +40,9 @@ public class Trie implements ITrie {
 		//System.out.println(test.root.nodecount);
 		System.out.println(test.getNodeCount());
 		System.out.println(test2.getNodeCount());
-		//System.out.println(test.getWordCount() + "Here1");
-		//System.out.println(test2.getWordCount()+ "Here2");
-		System.out.println(test.find("cares"));
+		System.out.println(test.getWordCount() + "Here1");
+		System.out.println(test2.getWordCount()+ "Here2");
+		System.out.println(test.find("care"));
 		//System.out.println("here");
 	}
 	Node root;
@@ -101,7 +101,7 @@ public class Trie implements ITrie {
 		if(word.length() != 0){
 			//System.out.println("here");
 			char c = word.charAt(0);
-			System.out.println(c);
+			//System.out.println(c);
 			int index = c - 'a';
 			//System.out.println(index);
 			if(current.children[index] == null ){
@@ -109,14 +109,14 @@ public class Trie implements ITrie {
 			}
 			else{
 
-				System.out.println("here3");
+				//System.out.println("here3");
 				current = current.children[index];
 			}
 			word = word.substring(1, word.length());
 			return findRec(word);
 		}
 		else if (current.getValue() == 0){
-			System.out.println("here2");
+			//System.out.println("here2");
 			return null;
 		}
 		else{
@@ -137,7 +137,7 @@ public class Trie implements ITrie {
 
 	@Override
 	public int getNodeCount() {
-		System.out.println(nodecount);
+		//System.out.println(nodecount);
 		return nodecount;
 	}
 	

@@ -9,7 +9,8 @@ import java.util.Scanner;
 
 public class SpellCorrector implements ISpellCorrector {
 	private Trie dictionary = new Trie();
-	private ArrayList<String> guesses = new ArrayList<String>(100); 
+	private ArrayList<String> guesses = new ArrayList<String>(); 
+	private ArrayList<String> tempguesses = new ArrayList<String>(); 
 	@Override
 	public void useDictionary(String dictionaryFileName) throws IOException {
 		Scanner reader = new Scanner(new BufferedInputStream(new FileInputStream(dictionaryFileName)));
@@ -29,6 +30,11 @@ public class SpellCorrector implements ISpellCorrector {
 	
 	@Override
 	public String suggestSimilarWord(String inputWord) throws NoSimilarWordFoundException {
+		/*if(inputWord.equals("lol")){
+			throw new NoSimilarWordFoundException();
+		}*/
+		guesses = new ArrayList<String>();
+		tempguesses = new ArrayList<String>();
 		if(dictionary.find(inputWord) != null){
 			return inputWord;
 		}
@@ -40,23 +46,31 @@ public class SpellCorrector implements ISpellCorrector {
 		int winner = 0;
 		int max = 0;
 		for(int i = 0; i < guesses.size();i++){
-			System.out.println("here1");
+			//System.out.println("here1");
 			Node temp = (Node)dictionary.find(guesses.get(i));
 			if(temp != null){
 				if(temp.getValue() > max){
 					max = temp.getValue();
 					winner = i;
 				}
-				System.out.println(temp.getValue()+" "+guesses.get(i));
+				//System.out.println(temp.getValue()+" "+guesses.get(i));
 			}
 		}
+		/*if(max!=0)
+		{
+			System.out.println("Dist. One: "+guesses.get(winner));
+		}*/
 		if(max == 0){
-			System.out.println("here2");
-			for(int i = 0;i < guesses.size();i++){
-				deletion(guesses.get(i));
-				transposition(guesses.get(i));
-				alteration(guesses.get(i));
-				insertion(guesses.get(i));
+			//System.out.println("here2");
+			for(int j = 0;j < guesses.size();j++){
+				tempguesses.add(guesses.get(j));
+			}
+			guesses.clear();
+			for(int i = 0;i < tempguesses.size();i++){
+				deletion(tempguesses.get(i));
+				transposition(tempguesses.get(i));
+				alteration(tempguesses.get(i));
+				insertion(tempguesses.get(i));
 			}
 			for(int i = 0; i < guesses.size();i++){
 				
@@ -66,13 +80,14 @@ public class SpellCorrector implements ISpellCorrector {
 						max = temp.getValue();
 						winner = i;
 					}
-					System.out.println(temp.getValue()+" "+guesses.get(i));
+					//System.out.println(temp.getValue()+" "+guesses.get(i));
 				}
 			}
 		}
 		if(max == 0){
-			return null;
+			throw new NoSimilarWordFoundException();
 		}
+		//System.out.println("Dist. Two: "+guesses.get(winner));
 		return guesses.get(winner);
 	}
 	private void insertion(String inputWord) {
@@ -91,7 +106,7 @@ public class SpellCorrector implements ISpellCorrector {
 					temp = temp.append(inputWord.substring(0, i)).append(alpha.charAt(j)).append(inputWord.substring(i, inputWord.length()));
 				}
 				container.add(temp.toString());
-				System.out.println(temp);
+				//System.out.println(temp);
 			}
 		}
 		for(int i = 0; i< container.size();i++){
